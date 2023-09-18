@@ -1,7 +1,7 @@
 # Makefile to build deb and rpm packages to install mount.ibmshare on target Linux machines.
 
 NAME := mount.ibmshare
-APP_VERSION := 0.0.1
+APP_VERSION := 0.0.2
 MAINTAINER := "Genctl Share"
 DESCRIPTION := "IBM Mount Share helper"
 LICENSE := "IBM"
@@ -85,6 +85,7 @@ local:
 
 test:
 	cd test && ./run_test.sh
+	rm -rf ./src/__pycache__ ./test/__pycache__
 
 pyenv-test:
 	cd test && ./run_pyenv_test.sh

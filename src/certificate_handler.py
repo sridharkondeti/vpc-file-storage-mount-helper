@@ -211,13 +211,7 @@ class CertificateHandler(MountHelperBase):
             return out is not None
 
     def get_digest(self):
-        # bit of a hack for checking sha to
-        version = get_app_version("/usr/bin/openssl", "openssl", vcmd="version")
-        if version:
-            self.LogDebug("OpenSSL version:"+version)
-            if version_compare(version, "1.1") >= 0:
-                return "-sha256"
-        return "-sha1"
+        return "-sha256"
 
     def generate_csr(self, private_key):
         # openssl req -out server.csr -key server.key -new
