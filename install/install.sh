@@ -4,6 +4,8 @@
 # Project name: VPC File Storage Mount Helper
 # This project is licensed under the MIT License, see LICENSE file in the root directory.
 
+
+
 INSTALL_ARG="$1"
 
 APP_NAME="IBM Mount Share Helper"
