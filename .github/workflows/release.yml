@@ -32,5 +32,7 @@ jobs:
             echo "No Alerts Found"
             gh api checks/$GITHUB_CHECK_RUN_ID -X POST -F conclusion=success -F output.title="No Alerts Found" -F output.summary="No Alerts Found".
         fi
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
             
