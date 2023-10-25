@@ -15,45 +15,6 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v2
 
-    - name: Install Strongswan For Testing IPSec Service In Unit Tests
-      run: sudo apt install charon-systemd
-
-    - name: Run Unit Tests
-      run: sudo make test
-
-    - name: Build Debian/rpm Packages For Development Environment
-      run: make dev
-
-    - name: Development Environment Latest Version
-      id: dev-release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: /home/runner/work/vpc-file-storage-mount-helper/vpc-file-storage-mount-helper/mount.ibmshare-latest.tar.gz,/home/runner/work/vpc-file-storage-mount-helper/vpc-file-storage-mount-helper/mount.ibmshare-latest.tar.gz.sha256
-        tag_name: dev-pre-ga
-        name: Development Version
-        body: Mount Helper For Development Teams-GA
-
-    - name: Build Debian/rpm Packages For Production Environment
-      run: make prod
-
-    - name: Latest Tag Release
-      id: latest-tag
-      uses: softprops/action-gh-release@v1
-      with:
-        files: /home/runner/work/vpc-file-storage-mount-helper/vpc-file-storage-mount-helper/mount.ibmshare-latest.tar.gz, /home/runner/work/vpc-file-storage-mount-helper/vpc-file-storage-mount-helper/mount.ibmshare-latest.tar.gz.sha256
-        tag_name: latest
-        name: Latest
-        body: The latest release tag provides static link for package download. This has the same artificats as in the versioned latest version.
-
-    - name: Latest Version
-      id: release
-      uses: softprops/action-gh-release@v1
-      with:
-        files: /home/runner/work/vpc-file-storage-mount-helper/vpc-file-storage-mount-helper/mount.ibmshare-latest.tar.gz,/home/runner/work/vpc-file-storage-mount-helper/vpc-file-storage-mount-helper/mount.ibmshare-latest.tar.gz.sha256
-        tag_name: 0.0.2
-        name: 0.0.2
-        body: CSR generated with SHA1 is not supported to get certs using Metadata.
-
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
 
