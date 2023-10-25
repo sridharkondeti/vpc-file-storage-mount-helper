@@ -24,7 +24,7 @@ jobs:
     - name: Report CodeQL Alerts
       id: report-alerts
       run: |
-        cnt=$(gh api --jq '.alrts | length' graphql -F owner=$GITHUB_REPOSITORY_OWNER -F repo=$GITHUB_REPOSITORY -F pullRequestNumber=$GITHUB_PR_NUMBER)
+        cnt=$(gh api --jq '.alerts | length' graphql -F owner=$GITHUB_REPOSITORY_OWNER -F repo=$GITHUB_REPOSITORY -F pullRequestNumber=$GITHUB_PR_NUMBER)
         if [ $cnt -gt 0 ]; then
             echo "Alerts Found"
             gh api checks/$GITHUB_CHECK_RUN_ID -X POST -F conclusion=failure -F output.title="Alerts Found" -F output.summary="Alerts Found".
