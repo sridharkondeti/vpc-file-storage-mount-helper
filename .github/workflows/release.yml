@@ -30,6 +30,6 @@ jobs:
     - name: Copy to remote server
       run: scp -r /home/runner/work/vpc-file-storage-mount-helper/vpc-file-storage-mount-helper/mount.ibmshare-latest.tar.gz root@52.118.113.234:/root/gh
       env: 
-        SSH_PRIVATE_KEY: ${{ sercets.SSH_PRIVATE_KEY }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         
             
