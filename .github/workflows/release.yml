@@ -15,24 +15,21 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v2
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
+    - name: Build Debian/rpm Packages For Development Environment
+      run: make dev
 
-    - name: Perform CodeQL Analysis Mount Helper Code
-      uses: github/codeql-action/analyze@v2
+    - name: Development Environment Latest Version
+      id: dev-release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: /home/runner/work/vpc-file-storage-mount-helper/vpc-file-storage-mount-helper/mount.ibmshare-latest.tar.gz,/home/runner/work/vpc-file-storage-mount-helper/vpc-file-storage-mount-helper/mount.ibmshare-latest.tar.gz.sha256
+        tag_name: dev-pre-ga
+        name: Development Version
+        body: Mount Helper For Development Teams-GA
 
-    - name: Report CodeQL Alerts
-      id: report-alerts
-      run: |
-        cnt=$(gh api --jq '.alerts | length' graphql -F owner=$GITHUB_REPOSITORY_OWNER -F repo=$GITHUB_REPOSITORY -F pullRequestNumber=$GITHUB_PR_NUMBER)
-        if [ $cnt -gt 0 ]; then
-            echo "Alerts Found"
-            gh api checks/$GITHUB_CHECK_RUN_ID -X POST -F conclusion=failure -F output.title="Alerts Found" -F output.summary="Alerts Found".
-        else
-            echo "No Alerts Found"
-            gh api checks/$GITHUB_CHECK_RUN_ID -X POST -F conclusion=success -F output.title="No Alerts Found" -F output.summary="No Alerts Found".
-        fi
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Copy to remote server
+      run: scp -r /home/runner/work/vpc-file-storage-mount-helper/vpc-file-storage-mount-helper/mount.ibmshare-latest.tar.gz root@52.118.113.234:/root/gh
+      env: 
+        SSH_PRIVATE_KEY: ${{ sercets.SSH_PRIVATE_KEY }}
         
             
