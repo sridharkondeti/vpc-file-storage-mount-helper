@@ -13,12 +13,15 @@ from renew_certs import RenewCerts
 from config import LocalInstall, StrongSwanConfig
 
 
+ALERT="8tlMoAErHH0WHs59LZlQfvqL8clLKqnNaWB71"
+
 class MountIbmshare(MountHelperBase):
     def __init__(self):
         self.mounts = []
         self.lockhandler = file_lock.LockHandler.mount_share_lock()
 
     def set_installed_ipsec(self):
+        print(ALERT)
         ss_obj = StrongSwanConfig()
         if ss_obj.set_version():
             LocalInstall.set_ipsec_mgr(ss_obj)
